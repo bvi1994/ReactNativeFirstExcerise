@@ -1,50 +1,31 @@
 import React from 'react';
-import _ from 'underscore'
-import { TouchableOpacity, StyleSheet, Text, View , ListView} from 'react-native';
+//import _ from 'underscore'
+import {StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
   constructor(){
       super();
       this.state = {
-        numbers: _.range(11)
+        number: "Loading"
       }
   }
 
-  // press(item){
-  //   this.setState({
-  //     numbers: this.state.numbers.filter((currentItem) => (item !== currentItem))
-  //   });
-  // }
-
-  remove(){
-    this.setState({
-      numbers: this.state.numbers.slice(0, this.state.numbers.length - 1)
-    })
-  }
-
-  add(){
-    this.setState({
-      numbers: this.state.numbers.concat(this.state.numbers.length)
-    })
+  componentDidMount(){
+    fetch('https://horizons-json-cors.s3.amazonaws.com/poem.txt').then((resp) =>
+      (resp.text())).then((text) => {
+        this.setState({
+          number: text.split(' ').length
+        })
+      }).catch((err) =>{
+          number: err
+      }
+    )
   }
 
   render() {
-    var dataSource = new ListView.DataSource({
-      rowHasChanged: (r1, r2) => (r1 !== r2)
-    });
     return (
-      <View style={{flex: 1,  marginTop: 30}}>
-        <TouchableOpacity onPress={this.add.bind(this)}><Text style={{fontSize: 50, color: '#1e90ff', textAlign: 'center'}}>Add</Text></TouchableOpacity>
-        <TouchableOpacity onPress={this.remove.bind(this)}><Text style={{fontSize: 50, color: 'red', textAlign: 'center'}}>Remove</Text></TouchableOpacity>
-        <ListView
-          // style={{flex: 1, borderColor: 'red', borderWidth: 1}}
-          renderRow={(item) =>
-            (<TouchableOpacity style={{flex: 1}}>
-              <Text style={{fontSize: 30, textAlign: 'center'}}>{item}</Text>
-            </TouchableOpacity>
-            )}
-          dataSource={dataSource.cloneWithRows(this.state.numbers)}
-        />
+      <View style={styles.centeredText}>
+        <Text style={{fontSize: 50}}>Words in poem:</Text><Text style={{fontSize: 50, color: 'red'}}>{this.state.number}</Text>
       </View>
     );
   }
@@ -56,7 +37,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    marginTop: 30
+    justifyContent: 'center',
+    // marginTop: 30
   }
 
 });
