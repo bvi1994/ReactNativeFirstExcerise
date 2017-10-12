@@ -6,7 +6,7 @@ import {StackNavigator} from 'react-navigation';
 class App extends React.Component {
   static navigationOptions = (props) => ({
     title: 'Page 1',
-    // headerRight: <TouchableOpacity onPress={() => props.navigation.navigate('Page2')}><Text>Page 2!</Text></TouchableOpacity>
+    headerRight: <TouchableOpacity onPress={() => props.navigation.navigate('Page2')}><Text style={{fontSize:20}}>Page 2!</Text></TouchableOpacity>
   })
 
   render() {
