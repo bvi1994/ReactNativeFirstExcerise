@@ -1,38 +1,38 @@
 import React from 'react';
 //import _ from 'underscore'
-import {StyleSheet, Text, View } from 'react-native';
+import {StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import {StackNavigator} from 'react-navigation';
 
-export default class App extends React.Component {
-  constructor(){
-      super();
-      this.state = {
-        number: "Loading"
-      }
-  }
-
-  componentDidMount(){
-    fetch('https://horizons-json-cors.s3.amazonaws.com/poem.txt').then((resp) =>
-      (resp.text())).then((text) => {
-        this.setState({
-          number: text.split(' ').length
-        })
-      }).catch((err) =>{
-          number: err
-      }
-    )
-  }
+class App extends React.Component {
+  static navigationOptions = (props) => ({
+    title: 'Page 1',
+    // headerRight: <TouchableOpacity onPress={() => props.navigation.navigate('Page2')}><Text>Page 2!</Text></TouchableOpacity>
+  })
 
   render() {
     return (
       <View style={styles.centeredText}>
-        <Text style={{fontSize: 50}}>Words in poem:</Text><Text style={{fontSize: 50, color: 'red'}}>{this.state.number}</Text>
+        <Text style={{fontSize:50}}>Page 1</Text>
+        <TouchableOpacity onPress={() => this.props.navigation.navigate('Page2')}><Text style={{fontSize:30}}>To Page 2!</Text></TouchableOpacity>
       </View>
     );
   }
 }
 
-const styles = StyleSheet.create({
+class Second extends React.Component{
+  static navigationOptions = (props) => ({
+    title: 'Page 2'
+  })
+  render(){
+    return(
+      <View style={styles.centeredText}>
+        <Text style={{fontSize:50}}>Page 2</Text>
+      </View>
+    )
+  }
+}
 
+const styles = StyleSheet.create({
   centeredText: {
     flex: 1,
     flexDirection: 'column',
@@ -42,3 +42,10 @@ const styles = StyleSheet.create({
   }
 
 });
+
+const Navigator = StackNavigator({
+  Home: {screen: App},
+  Page2: {screen: Second}
+});
+
+export default Navigator;
