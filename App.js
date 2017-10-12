@@ -2,75 +2,49 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      count: 0
+    };
+  }
+
+  up(){
+    this.setState({
+      count: this.state.count + 1
+    })
+  }
+
+  down(){
+    this.setState({
+      count: this.state.count - 1
+    })
+  }
+
   render() {
     return (
-      // <View style={{flex: 1}}>
-      //   <View style={styles.backgroundColorRed}></View>
-      //   <View style={styles.backgroundColorBlue}></View>
-      // </View>
-      // <View style={styles.centeredText}>
-      //   <Text>I am centered!</Text>
-      // </View>
-      // <View style={styles.centeredText2}>
-      //   <Text style={{
-      //     color: 'blue',
-      //     fontSize: 100
-      //   }}>Blue</Text>
-      //   <Text style={{
-      //     color: 'red',
-      //     fontSize: 50
-      //   }}>Red</Text>
-      // </View>
-      <View style={styles.centeredText3}>
-        {/* <TouchableOpacity> */}
-          {/* <Text style={{
-            fontSize: 100
-          }}>I love Matthew</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity><Text style={{
-          fontSize: 100
-        }}>I</Text></TouchableOpacity>
-        <TouchableOpacity><Text style = {{
-          fontSize: 100
-        }}>Love</Text></TouchableOpacity>
-        <TouchableOpacity><Text style = {{
-          fontSize: 100
-        }}>You</Text></TouchableOpacity>
+      <View style={styles.centeredText}>
+        <Text style={{fontSize: 60}}>{this.state.count}</Text>
+        <TouchableOpacity onPress={this.up.bind(this)}><Text style=
+          {{fontSize: 40}}>
+          Up
+        </Text></TouchableOpacity>
+        <TouchableOpacity onPress={this.down.bind(this)}><Text style={
+          {fontSize: 40}}>
+          Down
+        </Text></TouchableOpacity>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  // container: {
-  //   flex: 1,
-  //   backgroundColor: '#fff',
-  //   alignItems: 'center',
-  //   justifyContent: 'center',
-  // },
-  // backgroundColorRed: {
-  //   backgroundColor: 'red',
-  //   flex: 1
-  // },
-  // backgroundColorBlue: {
-  //   backgroundColor: '#1e90ff',
-  //   flex: 2
-  // }
-  // centeredText:{
-  //   flex: 1,
-  //   flexDirection: 'column',
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // }
-  // centeredText2:{
-  //   flex: 1,
-  //   flexDirection: 'column',
-  //   alignItems: 'center',
-  // }
-  centeredText3:{
+  centeredText:{
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   }
+
 });
