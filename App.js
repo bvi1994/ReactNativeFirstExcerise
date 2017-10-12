@@ -2,40 +2,27 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text, View } from 'react-native';
 
 export default class App extends React.Component {
+
+  constructor(){
+    super();
+    this.state = {
+      color: 'red'
+    };
+  }
+
+  disappear(){
+    this.setState({
+      color: 'white'
+    });
+  }
+
   render() {
     return (
-      // <View style={{flex: 1}}>
-      //   <View style={styles.backgroundColorRed}></View>
-      //   <View style={styles.backgroundColorBlue}></View>
-      // </View>
-      // <View style={styles.centeredText}>
-      //   <Text>I am centered!</Text>
-      // </View>
-      // <View style={styles.centeredText2}>
-      //   <Text style={{
-      //     color: 'blue',
-      //     fontSize: 100
-      //   }}>Blue</Text>
-      //   <Text style={{
-      //     color: 'red',
-      //     fontSize: 50
-      //   }}>Red</Text>
-      // </View>
-      <View style={styles.centeredText3}>
-        {/* <TouchableOpacity> */}
-          {/* <Text style={{
-            fontSize: 100
-          }}>I love Matthew</Text>
-        </TouchableOpacity> */}
-        <TouchableOpacity><Text style={{
-          fontSize: 100
-        }}>I</Text></TouchableOpacity>
-        <TouchableOpacity><Text style = {{
-          fontSize: 100
-        }}>Love</Text></TouchableOpacity>
-        <TouchableOpacity><Text style = {{
-          fontSize: 100
-        }}>You</Text></TouchableOpacity>
+      <View style={styles.centered}>
+        <TouchableOpacity onPress={this.disappear.bind(this)}>
+          <View style={{height: 200, width: 200, backgroundColor: this.state.color}}>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   }
@@ -48,29 +35,11 @@ const styles = StyleSheet.create({
   //   alignItems: 'center',
   //   justifyContent: 'center',
   // },
-  // backgroundColorRed: {
-  //   backgroundColor: 'red',
-  //   flex: 1
-  // },
-  // backgroundColorBlue: {
-  //   backgroundColor: '#1e90ff',
-  //   flex: 2
-  // }
-  // centeredText:{
-  //   flex: 1,
-  //   flexDirection: 'column',
-  //   alignItems: 'center',
-  //   justifyContent: 'center'
-  // }
-  // centeredText2:{
-  //   flex: 1,
-  //   flexDirection: 'column',
-  //   alignItems: 'center',
-  // }
-  centeredText3:{
+  centered:{
     flex: 1,
     flexDirection: 'column',
     alignItems: 'center',
-    justifyContent: 'space-between'
+    justifyContent: 'center'
   }
+
 });
